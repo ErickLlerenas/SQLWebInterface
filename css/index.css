@@ -1,0 +1,23 @@
+.container-fluid{
+    width: 100%;
+}
+#input{
+    height: 60vh !important;
+    resize: none;
+}
+
+#output{
+    height: 25vh !important;
+    resize: none;
+}
+.hover:hover{
+    background: rgba(24, 74, 212, 0.144);
+}
+span{
+    font-size: 15px;
+}
+
+.scroll{
+  height: 60vh;
+  overflow: auto;
+}
