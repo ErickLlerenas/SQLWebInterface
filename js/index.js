@@ -6,6 +6,7 @@ function getText(){
     }
     document.getElementById("output").value = textarea;
 }
-function insertPassasdword(){ 
-    prompt("Please insert password");
+function insertPassword(){ 
+    prompt("Please insert password .l.");
 }
+    
