@@ -19,19 +19,18 @@
 </head>
 
 <body>
+<form action="" method="POST">
 	<nav>
 		<div class="nav-wrapper blue  darken-2"> <a href="#" class="brand-logo">erickSQL</a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li> <a class="waves-effect waves-light btn blue darken-4 btn-small" onclick="getText()"><i class="material-icons">flash_on</i></a
-            >
-          </li>
+			<ul id="nav-mobile" class="right">
+				<li> <button class="waves-effect waves-light btn blue darken-4 btn-small" type="submit" name="submit"><i class="material-icons">flash_on</i></button></li>
         </ul>
       </div>
     </nav>
 
     <section class="container-fluid">
       <div class="row">
-        <article class="col m3 scroll">
+        <article class="col m3 scroll s12">
           <ul id="myUL">
             <li>
               <span class="caret" onclick="insertPassword()"
@@ -97,7 +96,7 @@
                             ><i
                               class="material-icons blue-text text-darken-4 left"
                               >border_all</i
-                            >Edificios</span
+                            >Edificio</span
                           >
                           <ul class="nested">
                                 <li>
@@ -189,13 +188,46 @@
           </ul>
         </article>
         
-        <div class="col m9">
-          <textarea id="input"></textarea>
+        <div class="col m9 s12">
+          
+          <textarea id="input" name="textarea"></textarea>
         </div>
       </div>
       <div class="row">
-        <div class="col m12">
-          <textarea id="output"></textarea>
+        <div class="col m12 scroll-output">
+          <?php
+          $Server = 'localhost';
+          $User = 'root';
+          $Password = '';
+          $DataBase = 'cpremier';
+          //conectarServidor y base de datos
+          $connection = new mysqli($Server,$User,$Password,$DataBase);
+
+          
+          //Seleccionar datos
+
+          if(isset($_POST['submit'])){
+            $sql = $_POST['textarea'];
+
+            if($sql!=null){
+              $result = $connection->query($sql);
+              echo "<table class='striped'>"; 
+              echo "<tr><th>Id_Trabajador</th><th>Nombre</th><th>Tarifa_Hr</th><th>Tipo_de_Oficio</th><th>Id_Supv</th></tr>";
+                             
+                while($row = mysqli_fetch_array($result)){
+                  $columns = count($row)/2;
+                  echo "<tr>";
+                  for($i=0;$i<$columns;$i++){
+                    echo "<td>" . $row[$i] . "</td>";
+                  }
+                  echo "</tr>";
+                }
+  
+            echo "</table>";
+            }
+          }
+          mysqli_close($connection);
+          ?>
         </div>
       </div>
     </section>
@@ -213,5 +245,6 @@
         });
       }
     </script>
+    </form>
   </body>
 </html>
