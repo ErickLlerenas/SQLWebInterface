@@ -212,9 +212,10 @@
             if($sql!=null){
               $result = $connection->query($sql);
               echo "<table class='striped'>"; 
-              echo "<tr><th>Id_Trabajador</th><th>Nombre</th><th>Tarifa_Hr</th><th>Tipo_de_Oficio</th><th>Id_Supv</th></tr>";
-                             
+              // echo "<tr><th>Id_Trabajador</th><th>Nombre</th><th>Tarifa_Hr</th><th>Tipo_de_Oficio</th><th>Id_Supv</th></tr>";
+              $rows = 0;
                 while($row = mysqli_fetch_array($result)){
+                  $rows++;
                   $columns = count($row)/2;
                   echo "<tr>";
                   for($i=0;$i<$columns;$i++){
@@ -224,6 +225,9 @@
                 }
   
             echo "</table>";
+            echo "<div class='alert alert-success'>";
+            echo $rows . " rows showed";
+            echo "</div>";
             }
           }
           mysqli_close($connection);
