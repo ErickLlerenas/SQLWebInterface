@@ -101,8 +101,7 @@
               echo "</tr>";
             }
             $rows = 0;
-            $result = $connection->query($sql);
-            
+            if ($result = $connection->query($sql)) {
               while($row = mysqli_fetch_array($result)){
                 $rows++;
                 $columns = count($row)/2;
@@ -112,12 +111,22 @@
                 }
                 echo "</tr>";
               }
-          echo "</table>";
+              echo "</table>";
+               //ALERT
+              echo "<div class='alert alert-success'>";
+              echo $rows . " rows showed";
+              echo "</div>";
+
+            }else{
+              //ALERT
+              echo "<div class='alert alert-danger'>";
+              echo "Syntax Error";
+              echo "</div>";
+            }
+
+              
           
-          //ALERT
-          echo "<div class='alert alert-success'>";
-          echo $rows . " rows showed";
-          echo "</div>";
+         
           }
         }
         mysqli_close($connection);
@@ -125,7 +134,7 @@
       </div>
     </div>
   </section>
-  <!-- Tree -->
+  <!-- TREE SCRIPT -->
   <script>
     var toggler = document.getElementsByClassName("caret");
     var i;
