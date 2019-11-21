@@ -210,9 +210,49 @@
             $sql = $_POST['textarea'];
 
             if($sql!=null){
+              
+              //Hacer los <tr>
+              $splited = explode(" ",$sql);
+              if($splited){
+                echo "<table class='striped'>"; 
+                echo "<tr>";
+                //Seleccionar de information_schema los nombres de la tabla Trabajador
+                for($i=0;$i<count($splited);$i++){
+                  if($splited[$i] == "Trabajador" || $splited[$i] == "Trabajador;"){
+                    $sqltr = "SELECT column_name FROM information_schema.columns WHERE table_schema= 'cpremier' AND table_name = 'Trabajador';";
+                  }
+                }
+                //Seleccionar de information_schema los nombres de la tabla Edificio
+                for($i=0;$i<count($splited);$i++){
+                  if($splited[$i] == "Edificio" || $splited[$i] == "Edificio;"){
+                    $sqltr = "SELECT column_name FROM information_schema.columns WHERE table_schema= 'cpremier' AND table_name = 'Edificio';";
+                  }
+                }
+                //Seleccionar de information_schema los nombres de la tabla Asignacion
+                for($i=0;$i<count($splited);$i++){
+                  if($splited[$i] == "Asignacion" || $splited[$i] == "Asignacion;"){
+                    $sqltr = "SELECT column_name FROM information_schema.columns WHERE table_schema= 'cpremier' AND table_name = 'Asignacion';";
+                  }
+                }
+                if($sqltr!=null){
+                  $resultado = $connection->query($sqltr);
+
+                  while($row = mysqli_fetch_array($resultado)){
+                    $columnas = count($row)/2;
+                    for($i=0;$i<$columnas;$i++){
+                      echo "<th>". $row[$i] . "</th>";
+  
+                    }
+                  }
+                }
+                
+                echo "</tr>";
+              }
+
+              //Mostrar los datos
               $rows = 0;
               $result = $connection->query($sql);
-              echo "<table class='striped'>"; 
+              
               // echo "<tr><th>Id_Trabajador</th><th>Nombre</th><th>Tarifa_Hr</th><th>Tipo_de_Oficio</th><th>Id_Supv</th></tr>";
                 while($row = mysqli_fetch_array($result)){
                   $rows++;
