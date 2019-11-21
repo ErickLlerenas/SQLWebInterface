@@ -26,10 +26,19 @@ span{
     height: 38vh !important;
     overflow: auto !important;
   }
-
 span,ul>li>i{
     font-size: 15px !important;
 }
 
 .alert{position:relative;padding:.75rem 1.25rem;margin-bottom:1rem;border:1px solid transparent;border-radius:.25rem}.alert-heading{color:inherit}.alert-link{font-weight:700}
 .alert-success{color:#155724;background-color:#d4edda;border-color:#c3e6cb}
+
+.ml{
+    margin-left: 15px;
+}
+.mb{
+    margin-bottom: 5px;
+}
+.mr{
+    margin-right: 15px;
+}
