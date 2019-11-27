@@ -30,7 +30,7 @@
 session_start();
 
 $DataBase = "cpremier";
-$Server = 'localhost';
+$Server = 'localhost:3307';
 if(isset($_POST['ok'])){
   $User = $_POST['usuario'];
   $Password = $_POST['contra'];
@@ -43,7 +43,9 @@ if(isset($_POST['ok'])){
 
 //conectarServidor y base de datos
 $connection = new mysqli($Server,$User,$Password,$DataBase);
-
+if($connection->connect_error){
+  header('Location: ./index.php');
+}
 
 ?>
   <form method="POST">
