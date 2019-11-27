@@ -84,14 +84,15 @@ $connection = new mysqli($Server,$User,$Password,$DataBase);
           $sql = $_POST['textarea'];
           
           if($sql!=null){
-            //Hacer los <tr>
-            $splited = explode(" ",$sql);
-            if($splited){
-              
 
-            echo "<table class='striped'>"; 
-            
+            //Aqui separa sentencias por ;
+            $comands = explode(";",$sql);
+
+            //La última posición del array
+            if(count($comands)>2){
+              $sql = $comands[count($comands)/2];
             }
+            echo "<table class='striped'>"; 
             $rows = 0;
             if ($result = $connection->query($sql)) {
               if($connection->query($sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
