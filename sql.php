@@ -43,8 +43,11 @@ if(isset($_POST['ok'])){
 
 //conectarServidor y base de datos
 $connection = new mysqli($Server,$User,$Password,$DataBase);
+
 if($connection->connect_error){
+
   header('Location: ./index.php');
+ 
 }
 
 ?>
