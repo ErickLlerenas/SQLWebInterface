@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<title>erickSQL</title>
+	<title>elleSQL</title>
   <!-- Scripts -->
 	<script src="./js/index.js"></script>
 	<!-- Materializecss Compiled and minified CSS -->
@@ -30,7 +30,7 @@
 session_start();
 
 $DataBase = "cpremier";
-$Server = 'localhost:3307';
+$Server = 'localhost';
 if(isset($_POST['ok'])){
   $User = $_POST['usuario'];
   $Password = $_POST['contra'];
@@ -49,10 +49,9 @@ if($connection->connect_error){
 
 ?>
   <form method="POST">
- 
   <!-- NAV BAR -->
     <nav>
-      <div class="nav-wrapper blue  darken-2"> <a href="#" class="brand-logo ml">erickSQL</a>
+      <div class="nav-wrapper blue  darken-2"> <a href="#" class="brand-logo ml">elleSQL</a>
         <ul id="nav-mobile" class="right">
           <li> <button class="waves-effect waves-light btn blue darken-4 btn-small mb mr" type="submit" name="submit" onclick="getSelected()"><i class="material-icons">flash_on</i></button></li>
         </ul>
@@ -69,7 +68,66 @@ if($connection->connect_error){
         $sqlCOLUMNS = 'SELECT column_name FROM information_schema.columns WHERE table_schema= "cpremier";';
         $resultColumns = $connection->query($sqlCOLUMNS);
         $row = mysqli_fetch_array($resultColumns);
-        echo '<ul id="myUL"> <li> <span class="caret" onclick="insertPassword()" ><i class="material-icons pink-text left">kitchen</i>Data Bases</span > <ul class="nested"> <li> <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >Cpremier</span > <ul class="nested"> <li> <span class="caret" ><i class="material-icons blue-text left">border_all</i >Tables</span > <ul class="nested"> <li> <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > <ul class="nested"> <li> <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > <ul class="nested"> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha_Inicio </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Num_Dias </li> </ul> </li> </ul> </li> <li> <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > <ul class="nested"> <li> <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > <ul class="nested"> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Direccion </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nivel_Calidad </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Categoria </li> </ul> </li> </ul> </li> <li> <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > <ul class="nested"> <li> <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > <ul class="nested"> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tarifa_Hr </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo_De_Oficio </li> <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Supv </li> </ul> </li> </ul> </li> </ul> </li> </ul> </li> </ul> </li> </ul> ';
+        echo '
+        <ul id="myUL"> 
+          <li> 
+            <span class="caret" onclick="insertPassword()" ><i class="material-icons pink-text left">kitchen</i>Data Bases</span > 
+            <ul class="nested"> 
+              <li> 
+                <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >'.$DataBase.'</span > 
+                <ul class="nested"> 
+                  <li> <span class="caret" ><i class="material-icons blue-text left">border_all</i >Tables</span > 
+                    <ul class="nested"> 
+                      <li> 
+                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
+                        <ul class="nested"> 
+                          <li> <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                            <ul class="nested"> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li>
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha_Inicio </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Num_Dias </li> 
+                            </ul> 
+                          </li>
+                        </ul> 
+                      </li> 
+                      <li> 
+                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
+                        <ul class="nested"> 
+                          <li> 
+                            <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                            <ul class="nested"> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Direccion </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nivel_Calidad </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Categoria </li> 
+                            </ul> 
+                          </li> 
+                        </ul> 
+                      </li> 
+                      <li> 
+                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
+                        <ul class="nested"> 
+                          <li> 
+                            <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                            <ul class="nested"> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tarifa_Hr </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo_De_Oficio </li> 
+                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Supv </li> 
+                            </ul> 
+                          </li> 
+                        </ul> 
+                      </li> 
+                    </ul> 
+                  </li> 
+                </ul> 
+              </li> 
+            </ul> 
+          </li> 
+        </ul> ';
       ?>
         </article>
     <!-- TEXTAREA INPUT -->
