@@ -44,3 +44,14 @@ span,ul>li>i{
 }
 
 .alert-danger{color:#721c24;background-color:#f8d7da;border-color:#f5c6cb}
+
+.red {
+    color: red;
+}
+
+#editor {
+    padding: 3px;
+    border: 1px solid #ccc;
+    width: 400px;
+}
+
