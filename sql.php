@@ -30,7 +30,7 @@
 session_start();
 
 $DataBase = "cpremier";
-$Server = 'localhost';
+$Server = 'localhost:3307';
 if(isset($_POST['ok'])){
   $User = $_POST['usuario'];
   $Password = $_POST['contra'];
@@ -42,7 +42,19 @@ if(isset($_POST['ok'])){
  
 
 //conectarServidor y base de datos
+if(isset($_POST['submit'])){
+  $sql = $_POST['textarea'];
+  if($sql=='use bsiabuc'){
+    $DataBase='bsiabuc';
+    }
+    if($sql=='use cpremier'){
+      $DataBase='cpremier';
+    }
+}
+
 $connection = new mysqli($Server,$User,$Password,$DataBase);
+
+
 
 if($connection->connect_error){
 
