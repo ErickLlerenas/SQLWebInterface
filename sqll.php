@@ -40,7 +40,7 @@ if(isset($_POST['ok'])){
  $DataBase="cpremier";
 
 //conectarServidor y base de datos
-$conn_string = "host=localhost port=5432 dbname='CPremier' user=postgres password=molly1603 ";
+$conn_string = "host=localhost port=5432 dbname='CPremier' user=postgres password=inserte password xd ";
  
 // establecemos una conexion con el servidor postgresSQL
 $connection = pg_connect($conn_string);
