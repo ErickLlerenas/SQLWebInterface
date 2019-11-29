@@ -26,7 +26,6 @@
 
 <body>
 <?php
-//Variables  
 session_start();
 
 $Server = 'localhost:3307';
@@ -36,9 +35,9 @@ if(isset($_POST['ok'])){
   $_SESSION['usuario'] = $User;
   $_SESSION['contra'] = $Password;
 }
-  $User = $_SESSION['usuario'] ;
+  $User = $_SESSION['usuario'];
   $Password = $_SESSION['contra'];
-    $DataBase="bsiabuc";
+ $DataBase="bsiabuc";
 
 //conectarServidor y base de datos
 
@@ -55,14 +54,10 @@ if(isset($_POST['submit'])){
 }
 
 
-
-
+//Regresar al Login en caso de Usuario Incorrecto
 if($connection->connect_error){
-
   header('Location: ./index.php');
- 
 }
-
 ?>
   <form method="POST">
   <!-- NAV BAR -->
@@ -77,78 +72,324 @@ if($connection->connect_error){
   <section class="container-fluid">
     <div class="row">
     <!-- TREE -->
-      <article class="col m3 scroll s12"> 
-      <?php
-        $sqlTABLES = "SELECT DISTINCT TABLE_NAME FROM information_schema.COLUMNS WHERE table_schema = 'cpremier';";
-        $resultTables = $connection->query($sqlTABLES);
-        $sqlCOLUMNS = 'SELECT column_name FROM information_schema.columns WHERE table_schema= "cpremier";';
-        $resultColumns = $connection->query($sqlCOLUMNS);
-        $row = mysqli_fetch_array($resultColumns);
+      <article class="col m4 scroll s12"> 
+      <?php    
         echo '
         <ul id="myUL"> 
           <li> 
-            <span class="caret" onclick="insertPassword()" ><i class="material-icons pink-text left">kitchen</i>Data Bases</span > 
+            <span class="caret"><i class="material-icons pink-text left">kitchen</i>Servers</span > 
             <ul class="nested"> 
               <li> 
-                <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >'.$DataBase.'</span >
+                <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >mySQL</span >
                 <ul class="nested"> 
-                  <li> <span class="caret" ><i class="material-icons blue-text left">border_all</i >Tables</span > 
+                  <li> 
+                    <span class="caret" ><i class="material-icons blue-text left">kitchen</i >databases</span > 
                     <ul class="nested"> 
-                      <li> 
-                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
-                        <ul class="nested"> 
-                          <li> 
-                            <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
-                            <ul class="nested"> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li>
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha_Inicio </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Num_Dias </li> 
-                            </ul> 
+                      <li>
+                        <span class="caret" ><i class="material-icons blue-text left">kitchen</i >cpremier</span > 
+                        <ul class="nested">
+                          <li>
+                            <span class="caret"><i class="material-icons pink-text left">border_all</i>tables/views</span > 
+                            <ul class="nested">
+                              <li> 
+                                <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >asignacion</span > 
+                                <ul class="nested"> 
+                                  <li> 
+                                    <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                    <ul class="nested"> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li>
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha_Inicio </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Num_Dias </li> 
+                                    </ul> 
+                                  </li>
+                                </ul> 
+                              </li> 
+                              <li> 
+                                <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >edificio</span > 
+                                <ul class="nested"> 
+                                  <li> 
+                                    <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                    <ul class="nested"> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Direccion </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nivel_Calidad </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Categoria </li> 
+                                    </ul> 
+                                  </li> 
+                                </ul> 
+                              </li> 
+                              <li> 
+                                <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >trabajador</span > 
+                                <ul class="nested"> 
+                                  <li> 
+                                    <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                    <ul class="nested"> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tarifa_Hr </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo_De_Oficio </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Supv </li> 
+                                    </ul>
+                                  </li> 
+                                </ul> 
+                              </li>
+                            </ul>
                           </li>
-                        </ul> 
-                      </li> 
-                      <li> 
-                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
-                        <ul class="nested"> 
-                          <li> 
-                            <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
-                            <ul class="nested"> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Direccion </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nivel_Calidad </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Categoria </li> 
-                            </ul> 
-                          </li> 
-                        </ul> 
-                      </li> 
-                      <li> 
-                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
-                        <ul class="nested"> 
-                          <li> 
-                            <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
-                            <ul class="nested"> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tarifa_Hr </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo_De_Oficio </li> 
-                              <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Supv </li> 
-                            </ul> 
-                          </li> 
-                        </ul> 
-                      </li> 
+                        </ul>
+                      </li>
+                      <!-- Bsiabuc -->
+                      <li>
+                        <span class="caret" ><i class="material-icons blue-text left">kitchen</i >bsiabuc</span > 
+                        <ul class="nested">
+                          <li>
+                            <span class="caret"><i class="material-icons pink-text left">border_all</i>tables/views</span > 
+                            <ul class="nested">
+                              <li> 
+                                <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >bibliotecas</span > 
+                                <ul class="nested"> 
+                                  <li> 
+                                    <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                    <ul class="nested"> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Bib_No </li>
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre corto </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Director </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Telefono </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Email </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Campus_No </li> 
+                                    </ul> 
+                                  </li>
+                                </ul> 
+                              </li> 
+                              <li> 
+                                <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >ejemplares</span > 
+                                <ul class="nested"> 
+                                  <li> 
+                                    <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                    <ul class="nested"> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ficha_No </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >NumAdqui </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >FechaIngreso </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Bib_No </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Volumen </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ejemplar </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tomo </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Accesible </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Escuela_No </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >FechaMod </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Analista </li> 
+                                    </ul> 
+                                  </li> 
+                                </ul> 
+                              </li> 
+                              <li> 
+                                <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >escuelas</span > 
+                                <ul class="nested"> 
+                                  <li> 
+                                    <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                    <ul class="nested"> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Escuela_No </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre Corto </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Responsable </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >e-mail </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Bib_No </li> 
+                                    </ul>
+                                  </li> 
+                                </ul> 
+                              </li>
+                              <li> 
+                                <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >fichas</span > 
+                                <ul class="nested"> 
+                                  <li> 
+                                    <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                    <ul class="nested"> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ficha_No </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha_Mod</li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >DatosFijos </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >EtiquetasMARC </li>
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >TipoMaterial</li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >ISBN</li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Titulo</li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Autor </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Clasificacion </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ficha_No </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Estatus </li> 
+                                      <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Coleccion_No</li> 
+                                    </ul>
+                                  </li> 
+                                </ul> 
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
                     </ul> 
                   </li> 
                 </ul> 
               </li> 
+              <li> 
+              <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >postgreSQL</span >
+              <ul class="nested"> 
+                <li> 
+                  <span class="caret" ><i class="material-icons blue-text left">kitchen</i >databases</span > 
+                  <ul class="nested"> 
+                    <li>
+                      <span class="caret" ><i class="material-icons blue-text left">kitchen</i >cpremier</span > 
+                      <ul class="nested">
+                        <li>
+                          <span class="caret"><i class="material-icons pink-text left">border_all</i>tables/views</span > 
+                          <ul class="nested">
+                            <li> 
+                              <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >asignacion</span > 
+                              <ul class="nested"> 
+                                <li> 
+                                  <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                  <ul class="nested"> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li>
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha_Inicio </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Num_Dias </li> 
+                                  </ul> 
+                                </li>
+                              </ul> 
+                            </li> 
+                            <li> 
+                              <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >edificio</span > 
+                              <ul class="nested"> 
+                                <li> 
+                                  <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                  <ul class="nested"> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Edificio </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Direccion </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nivel_Calidad </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Categoria </li> 
+                                  </ul> 
+                                </li> 
+                              </ul> 
+                            </li> 
+                            <li> 
+                              <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >trabajador</span > 
+                              <ul class="nested"> 
+                                <li> 
+                                  <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                  <ul class="nested"> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Trabajador </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tarifa_Hr </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tipo_De_Oficio </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Id_Supv </li> 
+                                  </ul>
+                                </li> 
+                              </ul> 
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <!-- Bsiabuc -->
+                    <li>
+                      <span class="caret" ><i class="material-icons blue-text left">kitchen</i >bsiabuc</span > 
+                      <ul class="nested">
+                        <li>
+                          <span class="caret"><i class="material-icons pink-text left">border_all</i>tables/views</span > 
+                          <ul class="nested">
+                            <li> 
+                              <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >bibliotecas</span > 
+                              <ul class="nested"> 
+                                <li> 
+                                  <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                  <ul class="nested"> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Bib_No </li>
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre corto </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Director </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Telefono </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Email </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Campus_No </li> 
+                                  </ul> 
+                                </li>
+                              </ul> 
+                            </li> 
+                            <li> 
+                              <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >ejemplares</span > 
+                              <ul class="nested"> 
+                                <li> 
+                                  <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                  <ul class="nested"> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ficha_No </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >NumAdqui </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >FechaIngreso </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Bib_No </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Volumen </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ejemplar </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Tomo </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Accesible </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Escuela_No </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >FechaMod </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Analista </li> 
+                                  </ul> 
+                                </li> 
+                              </ul> 
+                            </li> 
+                            <li> 
+                              <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >escuelas</span > 
+                              <ul class="nested"> 
+                                <li> 
+                                  <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                  <ul class="nested"> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Escuela_No </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Nombre Corto </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Responsable </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >e-mail </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Bib_No </li> 
+                                  </ul>
+                                </li> 
+                              </ul> 
+                            </li>
+                            <li> 
+                              <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >fichas</span > 
+                              <ul class="nested"> 
+                                <li> 
+                                  <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
+                                  <ul class="nested"> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ficha_No </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Fecha_Mod</li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >DatosFijos </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >EtiquetasMARC </li>
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >TipoMaterial</li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >ISBN</li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Titulo</li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Autor </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Clasificacion </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Ficha_No </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Estatus </li> 
+                                    <li> <i class="material-icons purple-text text-darken-3 left" >view_list </i >Coleccion_No</li> 
+                                  </ul>
+                                </li> 
+                              </ul> 
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul> 
+                </li> 
+              </ul> 
+            </li>
             </ul> 
           </li> 
         </ul> ';
       ?>
         </article>
     <!-- TEXTAREA INPUT -->
-      <article class="col m9 s12">
+      <article class="col m8 s12">
         <textarea id="input" name="textarea" oninput="highLight()" class="z-depth-1"></textarea>
       </article>
     </div>
