@@ -36,20 +36,20 @@ if(isset($_POST['ok'])){
   $_SESSION['usuario'] = $User;
   $_SESSION['contra'] = $Password;
 }
-  $User = $_SESSION['usuario'] ;
-  $Password = $_SESSION['contra'];
- $DataBase="cpremier";
+ 
 
 //conectarServidor y base de datos
 
-$connection = new mysqli($Server,$User,$Password,$DataBase);
-if(isset($_POST['submit'])){
+$conn_string = "host=localhost port=5432 dbname='CPremier' user=postgres password=molly1603 ";
+ 
+// establecemos una conexion con el servidor postgresSQL
+$dbconn = pg_connect($conn_string);if(isset($_POST['submit'])){
   $sql = $_POST['textarea'];
 
-  if($sql=="use bsiabuc"){
-    mysqli_close($connection);
+  if($sql=="use cpremier"){
+    pg_close($dbconn);
 
-      header('Location: ./sqI.php');
+      header('Location: ./sql.php');
     }
      
 }
@@ -57,7 +57,7 @@ if(isset($_POST['submit'])){
 
 
 
-if($connection->connect_error){
+if($dbconn->connect_error){
 
   header('Location: ./index.php');
  
@@ -80,10 +80,10 @@ if($connection->connect_error){
       <article class="col m3 scroll s12"> 
       <?php
         $sqlTABLES = "SELECT DISTINCT TABLE_NAME FROM information_schema.COLUMNS WHERE table_schema = 'cpremier';";
-        $resultTables = $connection->query($sqlTABLES);
+        $resultTables = $dbconn->pg_query($sqlTABLES);
         $sqlCOLUMNS = 'SELECT column_name FROM information_schema.columns WHERE table_schema= "cpremier";';
-        $resultColumns = $connection->query($sqlCOLUMNS);
-        $row = mysqli_fetch_array($resultColumns);
+        $resultColumns = $dbconn->pg_query($sqlCOLUMNS);
+        $row = pg_fetch_array($resultColumns);
         echo '
         <ul id="myUL"> 
           <li> 
@@ -95,7 +95,7 @@ if($connection->connect_error){
                   <li> <span class="caret" ><i class="material-icons blue-text left">border_all</i >Tables</span > 
                     <ul class="nested"> 
                       <li> 
-                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
+                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.pg_fetch_array($resultTables)[0].'</span > 
                         <ul class="nested"> 
                           <li> 
                             <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
@@ -109,7 +109,7 @@ if($connection->connect_error){
                         </ul> 
                       </li> 
                       <li> 
-                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
+                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.pg_fetch_array($resultTables)[0].'</span > 
                         <ul class="nested"> 
                           <li> 
                             <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
@@ -124,7 +124,7 @@ if($connection->connect_error){
                         </ul> 
                       </li> 
                       <li> 
-                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.mysqli_fetch_array($resultTables)[0].'</span > 
+                        <span class="caret" ><i class="material-icons blue-text text-darken-4 left" >border_all</i >'.pg_fetch_array($resultTables)[0].'</span > 
                         <ul class="nested"> 
                           <li> 
                             <span class="caret" ><i class="material-icons purple-text left" >view_module </i >Columns</span > 
@@ -172,9 +172,9 @@ if($connection->connect_error){
             echo "<table class='striped'>"; 
             $rows = 0;
             if($sql!='use cpremier' && $sql!='use bsiabuc'){
-            if ($result = $connection->query($sql)) {
-              if($connection->query($sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
-                while($row = mysqli_fetch_array($result)){
+            if ($result = $dbconn->pg_query($sql)) {
+              if($dbconn->pg_query($sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
+                while($row = pg_fetch_array($result)){
                   $rows++;
                   $columns = count($row)/2;
                   echo "<tr>";
@@ -193,7 +193,7 @@ if($connection->connect_error){
           }
           }
         }
-        mysqli_close($connection);
+        _close($dbconn);
         ?>
       </div>
     </div>

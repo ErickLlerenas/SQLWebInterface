@@ -38,7 +38,7 @@ if(isset($_POST['ok'])){
 }
   $User = $_SESSION['usuario'] ;
   $Password = $_SESSION['contra'];
- $DataBase="cpremier";
+    $DataBase="bsiabuc";
 
 //conectarServidor y base de datos
 
@@ -46,10 +46,10 @@ $connection = new mysqli($Server,$User,$Password,$DataBase);
 if(isset($_POST['submit'])){
   $sql = $_POST['textarea'];
 
-  if($sql=="use bsiabuc"){
+  if($sql=="use cpremier"){
     mysqli_close($connection);
 
-      header('Location: ./sqI.php');
+      header('Location: ./sql.php');
     }
      
 }
