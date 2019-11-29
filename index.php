@@ -23,6 +23,7 @@
             var instance = M.Modal.init(Modalelem);
             instance.open();
     });
+
 </script>
 </head>
 <body>
@@ -38,13 +39,11 @@
           <input id="last_name" type="text" class="validate" name="usuario"/>
           <label for="last_name" >User</label>
         </div>
-
         <div class="input-field col s12">
             <i class="material-icons prefix">lock_outline</i>
           <input id="password" type="password" class="validate" name="contra"/> 
           <label for="password" >Password</label>
         </div>
-      
     <div class="modal-footer">
       <button class="modal-close waves-effect waves-light btn center-align" name="ok" type="submit">Log in</button>
     </div>
