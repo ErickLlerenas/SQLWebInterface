@@ -27,4 +27,11 @@ function getSelected(){
 }
 
 
+function goMysql(){
+    window.open("mysql.php","_self");
+}
+
+function goPostgreSQL(){
+    window.open("postgresql.php","_self");
+}
     

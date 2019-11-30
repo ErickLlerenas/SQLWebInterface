@@ -39,7 +39,7 @@ if(isset($_POST['ok'])){
   $Password = $_SESSION['contra'];
  $DataBase="cpremier";
 
-//conectarServidor y base de datos
+//conectarServidor y base de datos mysql
 
 $connection = new mysqli($Server,$User,$Password,$DataBase);
 if(isset($_POST['submit'])){
@@ -48,7 +48,7 @@ if(isset($_POST['submit'])){
   if($sql=="use bsiabuc"){
     mysqli_close($connection);
 
-      header('Location: ./sqI.php');
+      header('Location: ./mysqI.php');
     }
      
 }
@@ -66,7 +66,7 @@ if($connection->connect_error){
         <ul id="nav-mobile" class="right">
           <li> <button class="waves-effect waves-light btn blue darken-4 btn-small mb mr" type="submit" name="submit" onclick="getSelected()"><i class="material-icons">flash_on</i></button></li>
         </ul>
-      </div>
+        
     </nav>
 
   <section class="container-fluid">
@@ -232,7 +232,7 @@ if($connection->connect_error){
                 </ul> 
               </li> 
               <li> 
-              <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >postgreSQL</span >
+              <span class="caret"  ondblclick="goPostgreSQL()"><i class="material-icons pink-text text-darken-4 left" >kitchen</i >postgreSQL</span >
               <ul class="nested"> 
                 <li> 
                   <span class="caret" ><i class="material-icons blue-text left">kitchen</i >databases</span > 

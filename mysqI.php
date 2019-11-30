@@ -37,28 +37,27 @@ if(isset($_POST['ok'])){
 }
   $User = $_SESSION['usuario'];
   $Password = $_SESSION['contra'];
- $DataBase="cpremier";
+ $DataBase="bsiabuc";
 
-//conectarServidor y base de datos
-$conn_string = "host=localhost port=5432 dbname='cpremier' user=postgres password=Fullstackdeveloper1 ";
- 
-// establecemos una conexion con el servidor postgresSQL
-$connection = pg_connect($conn_string);
- 
+//conectarServidor y base de datos mysqI
+
+$connection = new mysqli($Server,$User,$Password,$DataBase);
 if(isset($_POST['submit'])){
   $sql = $_POST['textarea'];
 
-  if($sql=="use bsiabuc"){
-    pg_close($connection);
+  if($sql=="use cpremier"){
+    mysqli_close($connection);
 
-      header('Location: ./sqI.php');
+      header('Location: ./mysql.php');
     }
      
 }
 
 
 //Regresar al Login en caso de Usuario Incorrecto
-
+if($connection->connect_error){
+  header('Location: ./index.php');
+}
 ?>
   <form method="POST">
   <!-- NAV BAR -->
@@ -67,6 +66,7 @@ if(isset($_POST['submit'])){
         <ul id="nav-mobile" class="right">
           <li> <button class="waves-effect waves-light btn blue darken-4 btn-small mb mr" type="submit" name="submit" onclick="getSelected()"><i class="material-icons">flash_on</i></button></li>
         </ul>
+        
       </div>
     </nav>
 
@@ -233,7 +233,7 @@ if(isset($_POST['submit'])){
                 </ul> 
               </li> 
               <li> 
-              <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >postgreSQL</span >
+              <span class="caret"  ondblclick="goPostgreSQL()"><i class="material-icons pink-text text-darken-4 left" >kitchen</i >postgreSQL</span >
               <ul class="nested"> 
                 <li> 
                   <span class="caret" ><i class="material-icons blue-text left">kitchen</i >databases</span > 
@@ -414,9 +414,9 @@ if(isset($_POST['submit'])){
             echo "<table class='striped'>"; 
             $rows = 0;
             if($sql!='use cpremier' && $sql!='use bsiabuc'){
-            if ($result = pg_query($connection, $sql)) {
-              if(pg_query($connection,$sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
-                while($row = pg_fetch_array($result)){
+            if ($result = $connection->query($sql)) {
+              if($connection->query($sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
+                while($row = mysqli_fetch_array($result)){
                   $rows++;
                   $columns = count($row)/2;
                   echo "<tr>";
@@ -435,7 +435,7 @@ if(isset($_POST['submit'])){
           }
           }
         }
-        pg_close($connection);
+        mysqli_close($connection);
         ?>
       </div>
     </div>

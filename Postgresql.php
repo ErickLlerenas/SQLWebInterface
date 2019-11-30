@@ -37,25 +37,28 @@ if(isset($_POST['ok'])){
 }
   $User = $_SESSION['usuario'];
   $Password = $_SESSION['contra'];
- $DataBase="bsiabuc";
+ $DataBase="cpremier";
 
 //conectarServidor y base de datos
-
-$connection = new mysqli($Server,$User,$Password,$DataBase);
+$conn_string = "host=localhost port=5432 dbname='cpremier' user=postgres password=xd ";
+ 
+// establecemos una conexion con el servidor postgresSQL
+$connection = pg_connect($conn_string);
+ 
 if(isset($_POST['submit'])){
   $sql = $_POST['textarea'];
 
-  if($sql=="use cpremier"){
-    mysqli_close($connection);
+  if($sql=="use bsiabuc"){
+    pg_close($connection);
 
-      header('Location: ./sql.php');
+      header('Location: ./sqI.php');
     }
      
 }
 
 
 //Regresar al Login en caso de Usuario Incorrecto
-if($connection->connect_error){
+if(!$connection){
   header('Location: ./index.php');
 }
 ?>
@@ -80,7 +83,7 @@ if($connection->connect_error){
             <span class="caret"><i class="material-icons pink-text left">kitchen</i>Servers</span > 
             <ul class="nested"> 
               <li> 
-                <span class="caret" ><i class="material-icons pink-text text-darken-4 left" >kitchen</i >mySQL</span >
+                <span class="caret" ondblclick="goMysql()"><i class="material-icons pink-text text-darken-4 left" >kitchen</i >mySQL</span >
                 <ul class="nested"> 
                   <li> 
                     <span class="caret" ><i class="material-icons blue-text left">kitchen</i >databases</span > 
@@ -413,9 +416,9 @@ if($connection->connect_error){
             echo "<table class='striped'>"; 
             $rows = 0;
             if($sql!='use cpremier' && $sql!='use bsiabuc'){
-            if ($result = $connection->query($sql)) {
-              if($connection->query($sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
-                while($row = mysqli_fetch_array($result)){
+            if ($result = pg_query($connection, $sql)) {
+              if(pg_query($connection,$sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
+                while($row = pg_fetch_array($result)){
                   $rows++;
                   $columns = count($row)/2;
                   echo "<tr>";
@@ -434,7 +437,7 @@ if($connection->connect_error){
           }
           }
         }
-        mysqli_close($connection);
+        pg_close($connection);
         ?>
       </div>
     </div>

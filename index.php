@@ -23,12 +23,12 @@
             var instance = M.Modal.init(Modalelem);
             instance.open();
     });
-
+    
 </script>
 </head>
 <body>
 
-<form method="POST" action="sql.php">
+<form method="POST" action="mysql.php">
  <!-- Modal Structure -->
  <div id="modal1" class="modal center-align">
     <div class="modal-content">
