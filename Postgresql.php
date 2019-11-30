@@ -40,13 +40,16 @@ if(isset($_POST['ok'])){
  $DataBase="cpremier";
 
 //conectarServidor y base de datos
-
-$connection = new mysqli($Server,$User,$Password,$DataBase);
+$conn_string = "host=localhost port=5432 dbname='CPremier' user=postgres password=XDD";
+ 
+// establecemos una conexion con el servidor postgresSQL
+$connection = pg_connect($conn_string);
+ 
 if(isset($_POST['submit'])){
   $sql = $_POST['textarea'];
 
   if($sql=="use bsiabuc"){
-    mysqli_close($connection);
+    pg_close($connection);
 
       header('Location: ./sqI.php');
     }
@@ -55,7 +58,7 @@ if(isset($_POST['submit'])){
 
 
 //Regresar al Login en caso de Usuario Incorrecto
-if($connection->connect_error){
+if(!$connection){
   header('Location: ./index.php');
 }
 ?>
@@ -413,9 +416,9 @@ if($connection->connect_error){
             echo "<table class='striped'>"; 
             $rows = 0;
             if($sql!='use cpremier' && $sql!='use bsiabuc'){
-            if ($result = $connection->query($sql)) {
-              if($connection->query($sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
-                while($row = mysqli_fetch_array($result)){
+            if ($result = pg_query($connection, $sql)) {
+              if(pg_query($connection,$sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
+                while($row = pg_fetch_array($result)){
                   $rows++;
                   $columns = count($row)/2;
                   echo "<tr>";
@@ -434,7 +437,7 @@ if($connection->connect_error){
           }
           }
         }
-        mysqli_close($connection);
+        pg_close($connection);
         ?>
       </div>
     </div>

@@ -39,7 +39,7 @@ if(isset($_POST['ok'])){
   $Password = $_SESSION['contra'];
  $DataBase="bsiabuc";
 
-//conectarServidor y base de datos
+//conectarServidor y base de datos mysqI
 
 $connection = new mysqli($Server,$User,$Password,$DataBase);
 if(isset($_POST['submit'])){
@@ -48,7 +48,7 @@ if(isset($_POST['submit'])){
   if($sql=="use cpremier"){
     mysqli_close($connection);
 
-      header('Location: ./sql.php');
+      header('Location: ./mysql.php');
     }
      
 }

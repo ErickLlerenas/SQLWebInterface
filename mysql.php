@@ -39,26 +39,25 @@ if(isset($_POST['ok'])){
   $Password = $_SESSION['contra'];
  $DataBase="cpremier";
 
-//conectarServidor y base de datos
-$conn_string = "host=localhost port=5432 dbname='CPremier' user=postgres password=inserte password xd ";
- 
-// establecemos una conexion con el servidor postgresSQL
-$connection = pg_connect($conn_string);
- 
+//conectarServidor y base de datos mysql
+
+$connection = new mysqli($Server,$User,$Password,$DataBase);
 if(isset($_POST['submit'])){
   $sql = $_POST['textarea'];
 
   if($sql=="use bsiabuc"){
-    pg_close($connection);
+    mysqli_close($connection);
 
-      header('Location: ./sqI.php');
+      header('Location: ./mysqI.php');
     }
      
 }
 
 
 //Regresar al Login en caso de Usuario Incorrecto
-
+if($connection->connect_error){
+  header('Location: ./index.php');
+}
 ?>
   <form method="POST">
   <!-- NAV BAR -->
@@ -414,9 +413,9 @@ if(isset($_POST['submit'])){
             echo "<table class='striped'>"; 
             $rows = 0;
             if($sql!='use cpremier' && $sql!='use bsiabuc'){
-            if ($result = pg_query($connection, $sql)) {
-              if(pg_query($connection,$sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
-                while($row = pg_fetch_array($result)){
+            if ($result = $connection->query($sql)) {
+              if($connection->query($sql)){//Validar otra vez por si hace una consulta que de TRUE o FALSE SIN resultados como DROP TABLE
+                while($row = mysqli_fetch_array($result)){
                   $rows++;
                   $columns = count($row)/2;
                   echo "<tr>";
@@ -435,7 +434,7 @@ if(isset($_POST['submit'])){
           }
           }
         }
-        pg_close($connection);
+        mysqli_close($connection);
         ?>
       </div>
     </div>
