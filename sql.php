@@ -28,7 +28,7 @@
 <?php
 session_start();
 
-$Server = 'localhost:3307';
+$Server = 'localhost:3306';
 if(isset($_POST['ok'])){
   $User = $_POST['usuario'];
   $Password = $_POST['contra'];

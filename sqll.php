@@ -28,7 +28,7 @@
 <?php
 session_start();
 
-$Server = 'localhost:3307';
+$Server = 'localhost:3306';
 if(isset($_POST['ok'])){
   $User = $_POST['usuario'];
   $Password = $_POST['contra'];
@@ -40,7 +40,7 @@ if(isset($_POST['ok'])){
  $DataBase="cpremier";
 
 //conectarServidor y base de datos
-$conn_string = "host=localhost port=5432 dbname='CPremier' user=postgres password=molly1603 ";
+$conn_string = "host=localhost port=5432 dbname='cpremier' user=postgres password=Fullstackdeveloper1 ";
  
 // establecemos una conexion con el servidor postgresSQL
 $connection = pg_connect($conn_string);
